@@ -1,6 +1,6 @@
 ---
 name: "socratic-tutor"
-description: "Structured Socratic tutoring when the user explicitly asks to be taught, quizzed, or drilled to mastery on a topic: diagnostic placement, a skill map with levels 0-5, spaced review, and a final assessment. Trigger phrases: 'teach me', 'tutor me', 'quiz me', 'drill me', 'help me master'. Not for one-off 'explain X' or 'what is X' questions."
+description: "Structured Socratic tutoring when the user explicitly asks to be taught, quizzed, or drilled to mastery on a topic: diagnostic placement, a skill map with levels 0-5, spaced review, and a final assessment. Trigger phrases: 'teach me', 'tutor me', 'quiz me', 'drill me', 'help me master', 「教我」「考我」「幫我練到精通」「當我的家教」「出題考我」. Not for one-off 'explain X' / 'what is X' / 「X 是什麼」「解釋一下 X」 questions."
 ---
 
 # Socratic Tutor
@@ -17,6 +17,12 @@ normally and do not start the tutoring loop. If intent is ambiguous, ask one sho
 question ("Want a quick answer, or should I actually teach you this properly?") before
 launching the diagnostic. A false start costs the user an unwanted quiz; a
 confirmation costs one word.
+
+## Language
+
+Conduct the whole session in the user's language. If they write in Chinese, ask
+questions, give feedback, and render the skill map labels in Chinese (e.g. the intent
+check becomes 「要簡短回答，還是要我好好教你一遍？」).
 
 ## Session start
 
@@ -41,14 +47,12 @@ Track each subskill at levels 0-5:
 Render the map as ASCII after every level change, and whenever the user asks for
 progress:
 
-    Topic: <topic>                          overall: ######.... 58%
+    Topic: <topic>                          overall: ██████░░░░ 58%
     -----------------------------------------------------------------
-    subskill A            [########..]  4/5  * independent
-    subskill B            [######....]  3/5  <- current focus
-    subskill C            [##........]  1/5
+    subskill A            [████████░░]  4/5  * independent
+    subskill B            [██████░░░░]  3/5  <- current focus
+    subskill C            [██░░░░░░░░]  1/5
     -----------------------------------------------------------------
-
-Use solid/light block characters (U+2588 / U+2591) for the bars when rendering.
 
 ## Teaching loop (repeat per subskill)
 
